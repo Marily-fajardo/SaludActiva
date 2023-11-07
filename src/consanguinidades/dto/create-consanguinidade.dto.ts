@@ -7,7 +7,7 @@ export class CreateConsanguinidadeDto {
     @IsString()
     @IsNotEmpty()
     @MaxLength(50)
-    genero: string;
+    consanguinidad: string;
   
     paciente: Paciente;
 }
