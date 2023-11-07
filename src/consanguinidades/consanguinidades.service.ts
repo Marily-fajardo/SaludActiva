@@ -1,26 +1,43 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConsanguinidadeDto } from './dto/create-consanguinidade.dto';
 import { UpdateConsanguinidadeDto } from './dto/update-consanguinidade.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Consanguinidade } from './entities/consanguinidade.entity';
 
 @Injectable()
 export class ConsanguinidadesService {
-  create(createConsanguinidadeDto: CreateConsanguinidadeDto) {
-    return 'This action adds a new consanguinidade';
+  constructor(
+    @InjectRepository(Consanguinidade)
+    private generoRepo: Repository<Consanguinidade>,
+  ) {}
+  async create(createConsanguinidadeDto: CreateConsanguinidadeDto) {
+    const consanguinidade = this.generoRepo.create(createConsanguinidadeDto);
+    await this.generoRepo.save(consanguinidade);
+    return consanguinidade;
   }
 
   findAll() {
-    return `This action returns all consanguinidades`;
+    return this.generoRepo.find({ order: { id: 'ASC' } });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} consanguinidade`;
+    return this.generoRepo.findOneBy([{ id }]);
   }
 
-  update(id: number, updateConsanguinidadeDto: UpdateConsanguinidadeDto) {
-    return `This action updates a #${id} consanguinidade`;
+  async update(id: number, updateConsanguinidadeDto: CreateConsanguinidadeDto) {
+    const oldConsanguinidade = await this.findOne(id);
+    const updateconsanguinidade = await this.generoRepo.merge(
+      oldConsanguinidade,
+      updateConsanguinidadeDto,
+    );
+    await this.generoRepo.save(updateconsanguinidade);
+    return updateconsanguinidade;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} consanguinidade`;
+  async remove(id: number) {
+    const consanguinidade = await this.findOne(id);
+    await this.generoRepo.remove(consanguinidade);
+    return 'Consanguinidade eliminado';
   }
 }
