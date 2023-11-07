@@ -19,7 +19,7 @@ import { ConsanguinidadesModule } from './consanguinidades/consanguinidades.modu
       port: 5432,
       username: 'postgres',
       password: 'root',
-      database: 'saludactiva',
+      database: 'saludactiva2',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),

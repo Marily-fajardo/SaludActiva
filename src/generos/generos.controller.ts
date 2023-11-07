@@ -1,14 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { GenerosService } from './generos.service';
 import { CreateGeneroDto } from './dto/create-genero.dto';
-import { UpdateGeneroDto } from './dto/update-genero.dto';
 
 @Controller('generos')
 export class GenerosController {
   constructor(private readonly generosService: GenerosService) {}
 
   @Post()
-  create(@Body() createGeneroDto: CreateGeneroDto) {
+  async create(@Body() createGeneroDto: CreateGeneroDto) {
     return this.generosService.create(createGeneroDto);
   }
 
@@ -18,17 +26,20 @@ export class GenerosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.generosService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGeneroDto: UpdateGeneroDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateGeneroDto: CreateGeneroDto,
+  ) {
     return this.generosService.update(+id, updateGeneroDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.generosService.remove(+id);
   }
 }
