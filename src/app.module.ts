@@ -8,6 +8,8 @@ import { FilesModule } from './files/files.module';
 import { ConsultasModule } from './consultas/consultas.module';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { RecetasModule } from './recetas/recetas.module';
+import { GenerosModule } from './generos/generos.module';
+import { ConsanguinidadesModule } from './consanguinidades/consanguinidades.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { RecetasModule } from './recetas/recetas.module';
     ConsultasModule,
     PacientesModule,
     RecetasModule,
+    GenerosModule,
+    ConsanguinidadesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
