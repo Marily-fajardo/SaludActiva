@@ -29,6 +29,8 @@ export class User {
     cascade: true,
   })
   images?: UserImage[];
-  @ManyToOne(() => Paciente, paciente => paciente.usuarios)
+
+  @OneToMany(() => Paciente, paciente => paciente.usuarios)
   paciente: Paciente;
+  
 }
