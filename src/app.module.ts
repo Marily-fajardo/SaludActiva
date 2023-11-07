@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 
 import { FilesModule } from './files/files.module';
 import { ConsultasModule } from './consultas/consultas.module';
+import { PacientesModule } from './pacientes/pacientes.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ConsultasModule } from './consultas/consultas.module';
     UsersModule,
     FilesModule,
     ConsultasModule,
+    PacientesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
