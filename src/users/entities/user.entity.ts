@@ -1,5 +1,6 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UserImage } from './user-image.entity';
+import { Paciente } from 'src/pacientes/entities/paciente.entity';
 
 @Entity()
 export class User {
@@ -28,4 +29,6 @@ export class User {
     cascade: true,
   })
   images?: UserImage[];
+  @ManyToOne(() => Paciente, paciente => paciente.usuarios)
+  paciente: Paciente;
 }

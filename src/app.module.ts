@@ -10,6 +10,7 @@ import { PacientesModule } from './pacientes/pacientes.module';
 import { RecetasModule } from './recetas/recetas.module';
 import { GenerosModule } from './generos/generos.module';
 import { ConsanguinidadesModule } from './consanguinidades/consanguinidades.module';
+import { Genero } from './generos/entities/genero.entity';
 
 @Module({
   imports: [
