@@ -29,7 +29,7 @@ export class GenerosService {
     const oldGenero = await this.findOne(id);
     const updategenero = await this.generoRepo.merge(oldGenero, cambios);
     await this.generoRepo.save(updategenero);
-    return updategenero + 'Actualizado';
+    return updategenero ;
   }
 
   async remove(id: number) {
