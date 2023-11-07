@@ -8,6 +8,6 @@ export class Genero {
   @Column({ type: 'varchar', nullable: false })
   genero: string;
 
-  @OneToMany(() => Paciente, (paciente) => paciente.recetas)
+  @OneToMany(() => Paciente, (paciente) => paciente.genero)
   paciente: Paciente;
 }

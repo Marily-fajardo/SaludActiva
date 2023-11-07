@@ -1,5 +1,5 @@
 import { Paciente } from 'src/pacientes/entities/paciente.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity()
 export class Consanguinidade {
@@ -9,6 +9,6 @@ export class Consanguinidade {
   @Column({ type: 'varchar', nullable: false })
   genero: string;
 
-  @ManyToOne(() => Paciente, (paciente) => paciente.recetas)
+  @OneToMany(() => Paciente, (paciente) => paciente.consanguinidades)
   paciente: Paciente;
 }
