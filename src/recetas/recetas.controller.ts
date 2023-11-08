@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { RecetasService } from './recetas.service';
 import { CreateRecetaDto } from './dto/create-receta.dto';
 import { UpdateRecetaDto } from './dto/update-receta.dto';
@@ -8,7 +8,7 @@ export class RecetasController {
   constructor(private readonly recetasService: RecetasService) {}
 
   @Post()
-  create(@Body() createRecetaDto: CreateRecetaDto) {
+async  create(@Body() createRecetaDto: CreateRecetaDto) {
     return this.recetasService.create(createRecetaDto);
   }
 
@@ -18,17 +18,17 @@ export class RecetasController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id',ParseIntPipe) id: number) {
     return this.recetasService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRecetaDto: UpdateRecetaDto) {
+  update(@Param('id',ParseIntPipe) id: number, @Body() updateRecetaDto: CreateRecetaDto) {
     return this.recetasService.update(+id, updateRecetaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id',ParseIntPipe) id: number) {
     return this.recetasService.remove(+id);
   }
 }
