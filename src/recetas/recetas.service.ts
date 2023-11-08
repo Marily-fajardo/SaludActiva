@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRecetaDto } from './dto/create-receta.dto';
 import { UpdateRecetaDto } from './dto/update-receta.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Receta } from './entities/receta.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class RecetasService {
-  create(createRecetaDto: CreateRecetaDto) {
-    return 'This action adds a new receta';
+  constructor(
+    @InjectRepository(Receta)
+    private recetaRepo: Repository<Receta>,
+  ) {}
+ async create(createRecetaDto: CreateRecetaDto) {
+    const receta = this.recetaRepo.create(createRecetaDto);
+    await this.recetaRepo.save(receta);
+    return receta;
   }
 
   findAll() {
-    return `This action returns all recetas`;
+    return this.recetaRepo.find({ order: { id: 'ASC' } });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} receta`;
+    return this.recetaRepo.findOneBy([{ id }]);
   }
 
-  update(id: number, updateRecetaDto: UpdateRecetaDto) {
-    return `This action updates a #${id} receta`;
+ async update(id: number, updateRecetaDto: CreateRecetaDto) {
+    const oldReceta = await this.findOne(id);
+    const updatereceta = await this.recetaRepo.merge(
+      oldReceta,
+      updateRecetaDto,
+    );
+    await this.recetaRepo.save(updatereceta);
+    return updatereceta;
+    
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} receta`;
+ async remove(id: number) {
+    const receta = await this.findOne(id);
+    await this.recetaRepo.remove(receta);
+    return 'Receta eliminado';
   }
 }
