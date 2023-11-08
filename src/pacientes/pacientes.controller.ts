@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { PacientesService } from './pacientes.service';
 import { CreatePacienteDto } from './dto/create-paciente.dto';
 import { UpdatePacienteDto } from './dto/update-paciente.dto';
@@ -8,7 +8,7 @@ export class PacientesController {
   constructor(private readonly pacientesService: PacientesService) {}
 
   @Post()
-  create(@Body() createPacienteDto: CreatePacienteDto) {
+async  create(@Body() createPacienteDto: CreatePacienteDto) {
     return this.pacientesService.create(createPacienteDto);
   }
 
@@ -18,17 +18,17 @@ export class PacientesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id',ParseIntPipe) id: number) {
     return this.pacientesService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePacienteDto: UpdatePacienteDto) {
+  update(@Param('id',ParseIntPipe) id: number, @Body() updatePacienteDto: CreatePacienteDto) {
     return this.pacientesService.update(+id, updatePacienteDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id',ParseIntPipe) id: number) {
     return this.pacientesService.remove(+id);
   }
 }
