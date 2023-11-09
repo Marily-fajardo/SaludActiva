@@ -11,6 +11,6 @@ export class Receta {
     @Column({ type: 'varchar', nullable: false })
     medicamentos: string;
 
-    @ManyToOne(() => Paciente, paciente => paciente.recetas)
+    @OneToMany(() => Paciente, paciente => paciente.recetas)
     paciente: Paciente;
 }

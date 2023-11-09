@@ -46,13 +46,10 @@ export class Paciente {
   @Column({ type: 'numeric', nullable: false })
   peso: number;
 
-  // @OneToMany(() => Archivo, archivo => archivo.paciente)
-  // archivos: Archivo[];
-
   @ManyToOne(() => Consulta, (consulta) => consulta.paciente)
   consultas: Consulta[];
 
-  @OneToMany(() => Receta, (receta) => receta.paciente)
+  @ManyToOne(() => Receta, (receta) => receta.paciente)
   recetas: Receta[];
 
   @ManyToOne(() => User, (usuario) => usuario.paciente)
